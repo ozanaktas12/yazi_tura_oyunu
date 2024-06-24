@@ -1,0 +1,111 @@
+import time
+import random
+print("YAZI TURA OYUNU\nbilgilendirme:")
+print("""*****************************
+-başlarken 1000 tl'niz olur eğer yazı veya turayı bilirseniz
+attığınız paranın 10 da 9'u kadar kazanır veya kaybedersiniz
+-eğer dik gelmesini bilirseniz yatırdığınız paranın 50 katını kazanırsınız
+bilemezseniz tüm paranızın 10 da 1'i kalır
+-yazı ve tura gelme ihtimali 101 de 50 iken
+dik gelme ihtimali 101 de 1 dir
+-ekstradan paranızı görmek isterseniz '5'e basın.
+iyi eğlenceler
+*****************************
+""")
+paran=1000
+
+def para_goster():
+    print(f"toplam paranız{paran}tl")
+
+while True:
+    try:
+        c=int(input("kaç para girmek istiyorsunuz:(paranızı görmek istiyorsanız '5'e basın)"))    
+    except ValueError:
+        print("girdiğiniz parada bir sıkıntı var lütfen tekrar girin")
+        continue
+    
+    if c == 5:
+        para_goster()
+        continue
+    
+    elif c > paran :
+        print("paranızın miktarından fazla para ile oynayamazsınız...")
+        continue
+    
+    elif c <= 0 :
+        print("sayı negatif değerli olamaz, lütfen pozitif bir sayı girin.")
+        continue
+    a=input("'yazı' mı 'tura' mı 'dik' mi:")
+
+    b = random.randint(1, 101)
+    
+    if a == "yazı":
+        print("yazıyı seçtiniz...")
+        time.sleep(1.5)
+        
+        if b <= 50:
+            print("kazandınız yazı geldi...")
+            c *=0.9
+            paran +=c
+            print(f"{paran}tl'niz var")
+        
+        elif b == 101:
+            print("dik geldi kaybettiniz...")
+            paran *=0.1
+            print(f"{paran}tl'niz var")
+        
+        else:
+            print("kaybettiniz tura geldi...")
+            paran -=c
+            print(f"{paran}tl'niz var")
+
+    elif a == "tura":
+        print("turayı seçtiniz...")
+        time.sleep(1.5)
+        
+        if b >= 50 and b <= 100:
+            print("tura geldi kazandınız")
+            c *= 0.9
+            paran += c
+            print(f"{paran}tl'niz var")
+        
+        elif b == 101:
+            print("dik geldi kaybettiniz")
+            paran *= 0.1
+            print(f"{paran}tl'niz var")
+        
+        else:    
+            print("yazı geldi kaybettiniz")
+            paran -= c
+            print(f"{paran}tl'niz var")
+
+    elif a =="dik" :
+        print("dik geleceğini seçtiniz...")
+        time.sleep(1.5)
+        
+        if b == 101:
+            print("kazandınız...")
+            c *= 50
+            paran += c
+            print(f"{paran}tl'niz var")
+        
+        else:
+            print("kaybettiniz")
+            paran -= c
+            print(f"{paran}tl'niz var")
+            
+            if b <=50 :
+                print("yazı geldi")
+            
+            elif b >50 and b <=100 :
+                print("tura geldi")
+
+    elif a == "q":
+        print("oyundan çıkış yapılıyor")
+        time.sleep(1.5)
+        print("iyi günler dileriz...")
+        break
+
+    else:
+        print("yanlış yazdınız tekrar yazın...")
+
